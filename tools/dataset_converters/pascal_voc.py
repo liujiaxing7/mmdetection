@@ -84,7 +84,6 @@ def cvt_annotations(devkit_path, years, split, out_file):
         img_paths = [
             f'VOC{year}/JPEGImages/{img_name}.jpg' for img_name in img_names
         ]
-
         part_annotations = mmcv.track_progress(parse_xml,
                                                list(zip(xml_paths, img_paths)))
         annotations.extend(part_annotations)
