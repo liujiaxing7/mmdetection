@@ -1,10 +1,12 @@
 # Copyright (c) OpenMMLab. All rights reserved.
+import os
 import os.path as osp
 import xml.etree.ElementTree as ET
 
 import mmcv
 import numpy as np
 from PIL import Image
+from tqdm import tqdm
 
 from .builder import DATASETS
 from .custom import CustomDataset
@@ -47,10 +49,15 @@ class XMLDataset(CustomDataset):
 
         data_infos = []
         img_ids = mmcv.list_from_file(ann_file)
-        for img_id in img_ids:
+        for img_id in tqdm(img_ids):
             filename = osp.join(self.img_subdir, f'{img_id}.jpg')
+
+            if not os.path.exists(osp.join(self.img_prefix, filename)):
+                filename = osp.join(self.img_subdir, f'{img_id}.png')
+
             xml_path = osp.join(self.img_prefix, self.ann_subdir,
                                 f'{img_id}.xml')
+            # print(xml_path)
             tree = ET.parse(xml_path)
             root = tree.getroot()
             size = root.find('size')

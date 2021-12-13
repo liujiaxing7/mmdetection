@@ -118,6 +118,7 @@ def main():
             args.model, class_names=dataset.CLASSES, device_id=0)
 
     model = MMDataParallel(model, device_ids=[0])
+
     outputs = single_gpu_test(model, data_loader, args.show, args.show_dir,
                               args.show_score_thr)
 

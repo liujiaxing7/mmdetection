@@ -219,7 +219,7 @@ class CocoPanopticDataset(CocoDataset):
         for i in self.img_ids:
             info = self.coco.load_imgs([i])[0]
             info['filename'] = info['file_name']
-            info['segm_file'] = info['filename'].replace('jpg', 'png')
+            info['segm_file'] = info['filename'].replace( 'jpg','png')
             data_infos.append(info)
         return data_infos
 
